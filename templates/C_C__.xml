@@ -1,0 +1,7 @@
+<templateSet group="C/C++">
+  <template name="wifiLongTermStrategy" value="unsigned long previousMillisHttpTest = 0;&#10;String deviceCode = &quot;ARDLULLABY7HM&quot;;&#10;void loopReconnectWhenWLStatusIsNotConnected() {&#10;    while (WiFi.status() != WL_CONNECTED) {&#10;        WiFi.reconnect();&#10;        Serial.print(&quot;.&quot;);&#10;        delay(5000);&#10;    }&#10;    // WiFi Longevity&#10;    unsigned long currentMillis = millis();&#10;    unsigned long intervalHttpTest = 120000;&#10;    if (currentMillis - previousMillisHttpTest &gt; intervalHttpTest || currentMillis - previousMillisHttpTest &lt; 0) {&#10;        http.begin(&quot;http://normanwanto.com/api/devicePings/ping?deviceCode=&quot;+deviceCode);&#10;        int statusCode = http.GET();&#10;        if (statusCode != 200) {&#10;            WiFi.reconnect();&#10;            Serial.println(&quot;HTTP Code not 200. Restarting Wifi&quot;);&#10;            delay(5000);&#10;        }&#10;    }&#10;}" description="Wifi Long Term Strategy" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+</templateSet>
